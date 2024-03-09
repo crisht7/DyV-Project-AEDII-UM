@@ -1,21 +1,14 @@
-# Abecedario.cpp, que incluye a Abecedario.h \
-DivideVenceras.cpp, que incluye a DivideVenceras.h, que incluye Abecedario.h \
-main.cpp, que incluye DivideVenceras.h
+ejecutable.out: DivideVenceras.o Abecedario.o Main.o
+	g++ DivideVenceras.o Abecedario.o Main.o -o ejecutable.out
 
-CC=g++
-CFLAGS=
-LDFLAGS=
-SOURCES=Abecedario.cpp DivideVenceras.cpp main.cpp
-OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=divideVenceras
+Abecedario.o: Abecedario.cpp Abecedario.h
+	g++ -c Abecedario.cpp
 
-all: $(SOURCES) $(EXECUTABLE)
+DivideVenceras.o: DivideVenceras.cpp DivideVenceras.h
+	g++ -c DivideVenceras.cpp
 
-$(EXECUTABLE): $(OBJECTS)
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
-
-.cpp.o:
-	$(CC) $(CFLAGS) $< -o $@
+Main.o: Main.cpp DivideVenceras.h Abecedario.h
+	g++ -c Main.cpp
 
 clean:
-	rm -rf *o $(EXECUTABLE)
+	rm -rf a.out salidaActual.out *.o
