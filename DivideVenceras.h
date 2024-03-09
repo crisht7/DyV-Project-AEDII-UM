@@ -5,6 +5,8 @@
 #include <string>
 #include "Abecedario.h"
 
+using namespace std;
+
 class DivideVenceras{
 public:
     static array<int,2> divideVenceras(string s, int tamanio);

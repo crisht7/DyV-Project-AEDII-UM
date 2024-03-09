@@ -38,7 +38,7 @@ array<int,2> DivideVenceras::divideVenceras(string s, int tamanio){
         return solucion;
     } else{
         int indice = dividirProblema(s,tamanio);
-        array<int, 2> solucion = ;                 // BORRAR: de momento, para que no de error
+        array<int, 2> solucion = {1,1};                 // BORRAR: de momento, para que no de error
         return solucion;
     }
 }
