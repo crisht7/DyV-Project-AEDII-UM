@@ -13,9 +13,9 @@ array<int,2> DivideVenceras::solucionarDirectamente(string s, int tamanio){
     return resultado;
 }
 
-// No necesitaría s, lo incluyo para igual que diapositivas
+// No necesitaría tamanio, lo incluyo para igual que diapositivas
 int DivideVenceras::dividirProblema(string s, int tamanio){
-    return tamanio/2;           // BORRAR: de momento, así no creo que sea
+    return s.length()/2;           // BORRAR: de momento, así no creo que sea
 }
 
 /*
@@ -31,14 +31,14 @@ array<int,2> DivideVenceras::combinar(array<int,2> primerSubproblema, array<int,
     }
 }
 
-array<int,2> DivideVenceras::divideVenceras(string s, int tamanio){
+array<int,2> DivideVenceras::divideVenceras(string cadena, int tamanio){
     // De acuerdo con diapositiva 11 de teoría
-    if(isProblemaPequenio(s,tamanio)){
-        array<int,2> solucion = solucionarDirectamente(s,tamanio);
-        return solucion;
+    // https://aulavirtual.um.es/access/content/group/1900_G_2023_N_N/grupo%202%20-%20Quino/teor%C3%ADa/tema%202%20-%20DyV/tema2.pdf
+    if(isProblemaPequenio(cadena,tamanio)){
+        return solucionarDirectamente(cadena,tamanio);
     } else{
-        int indice = dividirProblema(s,tamanio);
-        array<int, 2> solucion = {1,1};                 // BORRAR: de momento, para que no de error
+        int indice = dividirProblema(cadena,tamanio);
+        array<int, 2> solucion = combinar(divideVenceras(0,indice), divideVenceras(indice+1, cadena.length()));                 // BORRAR: de momento, para que no de error
         return solucion;
     }
 }

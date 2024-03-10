@@ -25,7 +25,7 @@ char Abecedario::getPrimeraEnAbecedario(char a, char b){
 
 char Abecedario::getSiguienteLetra(char c){
     if(c=='z'){
-        return 'z';
+        return CARACTER_INVALIDO;
     }
     return abecedario[getPosicionEnAbecedario(c)+1];
 }
