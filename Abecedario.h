@@ -5,6 +5,7 @@ class Abecedario{
 public:
     static int getPosicionEnAbecedario(char c);
     static char getSiguienteLetra(char c);
+    static char getPrimeraEnAbecedario(char a, char b);
 };
 
 #endif
