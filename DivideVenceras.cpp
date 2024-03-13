@@ -2,7 +2,7 @@
 
 #define INDICE_TAMANIO_SUBCADENA 1
 
-// No necesitaría s, lo incluyo para igual que diapositivas
+// No necesitaría tamanio, lo incluyo para igual que diapositivas
 bool DivideVenceras::isProblemaPequenio(string s, int tamanio){
     return s.length() == 1;
 }
