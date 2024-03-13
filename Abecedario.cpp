@@ -5,6 +5,13 @@
 
 char abecedario[] = "abcdefghijklmnopqrstuvwxyz";
 
+char Abecedario::getSiguienteLetra(char c){
+    if(c=='z'){
+        return CARACTER_INVALIDO;
+    }
+    return abecedario[getPosicionEnAbecedario(c)+1];
+}
+
 int Abecedario::getPosicionEnAbecedario(char c){
     for(int i = 0; i<TAMANIO_ABECEDARIO; i++){
         if(abecedario[i]==c){
@@ -21,11 +28,4 @@ char Abecedario::getPrimeraEnAbecedario(char a, char b){
         }
     }
     return CARACTER_INVALIDO;
-}
-
-char Abecedario::getSiguienteLetra(char c){
-    if(c=='z'){
-        return CARACTER_INVALIDO;
-    }
-    return abecedario[getPosicionEnAbecedario(c)+1];
 }

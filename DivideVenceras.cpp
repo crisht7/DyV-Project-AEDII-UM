@@ -4,7 +4,7 @@
 
 // No necesitaría s, lo incluyo para igual que diapositivas
 bool DivideVenceras::isProblemaPequenio(string s, int tamanio){
-    return tamanio == 1;
+    return s.length() == 1;
 }
 
 // No necesitaría parámetros, lo incluyo para igual que diapositivas.
@@ -33,7 +33,6 @@ array<int,2> DivideVenceras::combinar(array<int,2> primerSubproblema, array<int,
 
 array<int,2> DivideVenceras::divideVenceras(string cadena, int tamanio){
     // De acuerdo con diapositiva 11 de teoría
-    // https://aulavirtual.um.es/access/content/group/1900_G_2023_N_N/grupo%202%20-%20Quino/teor%C3%ADa/tema%202%20-%20DyV/tema2.pdf
     if(isProblemaPequenio(cadena,tamanio)){
         return solucionarDirectamente(cadena,tamanio);
     } else{
