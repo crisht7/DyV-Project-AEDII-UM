@@ -4,7 +4,7 @@
 
 // No necesitaría s, lo incluyo para igual que diapositivas
 bool DivideVenceras::isProblemaPequenio(string s, int tamanio){
-    return s.length() == tamanio;
+    return s.length() == 1;
 }
 
 // No necesitaría parámetros, lo incluyo para igual que diapositivas.
