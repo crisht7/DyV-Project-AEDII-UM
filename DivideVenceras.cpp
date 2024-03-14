@@ -24,7 +24,7 @@ int DivideVenceras::dividirProblema(string s, int tamanio){
         original, a partir de las soluciones de los subproblemas.
 */
 array<int,2> DivideVenceras::combinar(array<int,2> primerSubproblema, array<int,2> segundoSubproblema, array<int,2> tercerSubproblema){
-    // TODO
+    // TODO: Contemplar el caso de la mitad
     if(primerSubproblema[INDICE_TAMANIO_SUBCADENA]>=segundoSubproblema[INDICE_TAMANIO_SUBCADENA]){
         return primerSubproblema;
     } else{
