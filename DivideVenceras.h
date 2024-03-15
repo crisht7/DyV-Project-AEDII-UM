@@ -22,6 +22,7 @@ private:
     static Resultado combinar(Resultado primerProblema, Resultado segundoProblema, Resultado tercerSubproblema);
     static string calcularMitad(string s, int indice);
     static Resultado encontrarSubcadenaAscendente(string cadena, int tamanioBuscado);
+    static string getMitadCadena(string cadena, int mitad, bool isDerecha);
 };
 
 #endif

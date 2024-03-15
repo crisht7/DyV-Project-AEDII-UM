@@ -2,9 +2,9 @@
 
 #define INDICE_TAMANIO_SUBCADENA 1
 
-// No necesitaría tamanio, lo incluyo para igual que diapositivas TODO:cambiar
+// No necesitaría tamanio, lo incluyo para igual que diapositivas TODO:no seguro si asi
 bool DivideVenceras::isProblemaPequenio(string s, int tamanio){
-    return s.length() <= tamanio;
+    return s.length() == 1;
 }
 
 // No necesitaría parámetros, lo incluyo para igual que diapositivas.
@@ -71,6 +71,14 @@ string DivideVenceras::calcularMitad(string s, int indice){
     return "";
 }
 
+string DivideVenceras::getMitadCadena(string cadena, int mitad, bool isDerecha){
+    if(isDerecha){
+        return cadena.substr(mitad, cadena.length()-1);
+    } else{
+        return cadena.substr(0, mitad);
+    }
+}
+
 Resultado DivideVenceras::divideVenceras(string cadena, int tamanio){
     // De acuerdo con diapositiva 11 de teoría
     if(isProblemaPequenio(cadena,tamanio)){
@@ -78,8 +86,8 @@ Resultado DivideVenceras::divideVenceras(string cadena, int tamanio){
     } else{
         int indice = dividirProblema(cadena,tamanio);
 
-        string stringIzquierda = cadena.substr(0, indice);
-        string stringDerecha = cadena.substr(indice, cadena.length()-1);
+        string stringIzquierda = getMitadCadena(cadena, indice, false);
+        string stringDerecha = getMitadCadena(cadena, indice, true);
 
 
         Resultado solucion = combinar(divideVenceras(stringIzquierda,tamanio), divideVenceras(stringDerecha, tamanio), divideVenceras(calcularMitad(cadena, indice), tamanio));                 // BORRAR: de momento, para que no de error
