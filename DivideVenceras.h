@@ -7,20 +7,16 @@
 
 using namespace std;
 
-struct Resultado {
-  int indiceInicio;
-  int tamanio;
-};
-
 class DivideVenceras{
 public:
     static Resultado divideVenceras(string s, int tamanio);
 private:
-    static bool isProblemaPequenio(string s, int tamanio);
-    static Resultado solucionarDirectamente(string s, int tamanio);
-    static int dividirProblema(string cadena, int tamanio);
-    static Resultado combinar(Resultado primerProblema, Resultado segundoProblema, Resultado tercerSubproblema);
-    static string calcularMitad(string s, int indice);
+    static bool isProblemaPequenio(string cadena);
+    static Resultado solucionarDirectamente();
+    static int dividirProblema(string cadena);
+    static Resultado combinar(Resultado primerSubProblema, Resultado segundoSubProblema, Resultado tercerSubproblema);
+    static Resultado combinar(Resultado primerSubProblema, Resultado segundoSubProblema);
+    static Resultado calcularMitad(const string& cadena, int indice, int tamanioBuscado);
     static Resultado encontrarSubcadenaAscendente(string cadena, int tamanioBuscado);
     static string getMitadCadena(const string& cadena, int mitad, bool isDerecha);
 };

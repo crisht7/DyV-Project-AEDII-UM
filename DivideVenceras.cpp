@@ -1,51 +1,56 @@
 #include "DivideVenceras.h"
 
-#define INDICE_TAMANIO_SUBCADENA 1
-
-// No necesitaría tamanio, lo incluyo para igual que diapositivas TODO:no seguro si asi
-bool DivideVenceras::isProblemaPequenio(string s, int tamanio){
-    return s.length() == 1;
+bool DivideVenceras::isProblemaPequenio(string cadena){
+    return cadena.length() == 1;
 }
 
-// No necesitaría parámetros, lo incluyo para igual que diapositivas.
-Resultado DivideVenceras::solucionarDirectamente(string s, int tamanio){
-    Resultado resultado = {1,1};
+Resultado DivideVenceras::solucionarDirectamente(){
+    Resultado resultado = {1,1};                    // ya que el caso base es el de una cadena de length 1
     return resultado;
 }
 
-// No necesitaría tamanio, lo incluyo para igual que diapositivas
-int DivideVenceras::dividirProblema(string cadena, int tamanio){
-    return cadena.length() / 2;           // BORRAR: de momento, así no creo que sea
+int DivideVenceras::dividirProblema(string cadena){
+    return cadena.length() / 2;
 }
 
 /*
-    Según diapositivas:
-        Método para obtener la solución al problema
-        original, a partir de las soluciones de los subproblemas.
+    Método para obtener la solución al problema original
+    a partir de las soluciones de los subproblemas.
 */
 Resultado DivideVenceras::combinar(Resultado primerSubproblema, Resultado segundoSubproblema, Resultado tercerSubproblema){
-    // TODO: Contemplar el caso de la mitad
-    if(primerSubproblema.tamanio>=segundoSubproblema.tamanio){
-        return primerSubproblema;
-    } else{
-        return segundoSubproblema;
+    Resultado mayor = primerSubproblema;
+
+    if (segundoSubproblema.tamanio > mayor.tamanio) {
+        mayor = segundoSubproblema;
     }
+
+    if (tercerSubproblema.tamanio > mayor.tamanio) {
+        mayor = tercerSubproblema;
+    }
+
+    return mayor;
 }
 
+Resultado DivideVenceras::combinar(Resultado primerSubproblema, Resultado segundoSubproblema){
+    Resultado mayor = primerSubproblema;
 
-// -1 en indiceInicio si no encontrado
+    if (segundoSubproblema.tamanio > mayor.tamanio) {
+        mayor = segundoSubproblema;
+    }
+
+    return mayor;
+}
+
 Resultado DivideVenceras::encontrarSubcadenaAscendente(string cadena, int tamanioBuscado) {
     int maxLongitud = 0;
     int indiceInicio = 0;
     int longitudActual = 1;
 
-    // Recorrer la cadena
     for (int i = 1; i < cadena.length(); i++) {
-        // Si el elemento actual es mayor que el anterior, aumentar la longitud actual
+        
         if (Abecedario::isPosteriorAlfabeticamente(cadena[i], cadena[i-1]) && longitudActual < tamanioBuscado) {
             longitudActual++;
         } else {
-        // Si no, actualizar la longitud máxima y el índice de inicio si es necesario
             if (longitudActual > maxLongitud) {
                 maxLongitud = longitudActual;
                 indiceInicio = i - maxLongitud;
@@ -54,7 +59,6 @@ Resultado DivideVenceras::encontrarSubcadenaAscendente(string cadena, int tamani
         }
     }
 
-    // Actualizar la longitud máxima y el índice de inicio si la última secuencia es la más larga
     if (longitudActual > maxLongitud) {
         maxLongitud = longitudActual;
         indiceInicio = cadena.length() - maxLongitud;
@@ -65,8 +69,11 @@ Resultado DivideVenceras::encontrarSubcadenaAscendente(string cadena, int tamani
 }
 
 
-string DivideVenceras::calcularMitad(string s, int indice){
-    return "";
+Resultado DivideVenceras::calcularMitad(const string& cadena, int indice, int tamanioBuscado){
+    Resultado izquierda = encontrarSubcadenaAscendente(cadena.substr(indice - 1, cadena.length() - indice - 1),tamanioBuscado);
+    Resultado derecha = encontrarSubcadenaAscendente(cadena.substr(indice),tamanioBuscado);
+
+    return combinar(izquierda, derecha);
 }
 
 string DivideVenceras::getMitadCadena(const string& cadena, int indiceMitad, bool isDerecha){
@@ -77,19 +84,18 @@ string DivideVenceras::getMitadCadena(const string& cadena, int indiceMitad, boo
     }
 }
 
+/*
+    Estructura DyV de acuerdo con diapositiva 11 de teoría.
+*/
 Resultado DivideVenceras::divideVenceras(string cadena, int tamanio){
-    // De acuerdo con diapositiva 11 de teoría
-    if(isProblemaPequenio(cadena,tamanio)){
-        return solucionarDirectamente(cadena,tamanio);
+    if(isProblemaPequenio(cadena)){
+        return solucionarDirectamente();
     } else{
-        int indice = dividirProblema(cadena,tamanio);
+        int indice = dividirProblema(cadena);
 
         string stringIzquierda = getMitadCadena(cadena, indice, false);
         string stringDerecha = getMitadCadena(cadena, indice, true);
 
-
-
-        Resultado solucion = combinar(divideVenceras(stringIzquierda,tamanio), divideVenceras(stringDerecha, tamanio), divideVenceras(calcularMitad(cadena, indice), tamanio));                 // BORRAR: de momento, para que no de error
-        return solucion;
+        return combinar(divideVenceras(stringIzquierda,tamanio), divideVenceras(stringDerecha, tamanio), calcularMitad(cadena, indice,tamanio));
     }
 }

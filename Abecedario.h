@@ -3,6 +3,11 @@
 
 #include <iostream>
 
+struct Resultado {
+  int indiceInicio;
+  int tamanio;
+};
+
 using namespace std;
 
 class Abecedario{

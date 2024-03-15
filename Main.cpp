@@ -8,6 +8,6 @@
 using namespace std;
 
 int main(){
-    DivideVenceras::divideVenceras("abcedhidqwuei", 2);
+    cout << DivideVenceras::divideVenceras("cddabcdacc", 5).tamanio;
     return 0;
 }
