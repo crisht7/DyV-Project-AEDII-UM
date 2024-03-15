@@ -71,7 +71,7 @@ string DivideVenceras::calcularMitad(string s, int indice){
     return "";
 }
 
-string DivideVenceras::getMitadCadena(string cadena, int mitad, bool isDerecha){
+string DivideVenceras::getMitadCadena(const string& cadena, int mitad, bool isDerecha){
     if(isDerecha){
         return cadena.substr(mitad, cadena.length()-1);
     } else{
