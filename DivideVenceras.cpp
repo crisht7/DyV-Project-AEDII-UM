@@ -60,9 +60,7 @@ Resultado DivideVenceras::encontrarSubcadenaAscendente(string cadena, int tamani
         indiceInicio = cadena.length() - maxLongitud;
     }
 
-    Resultado resultado;
-    resultado.tamanio=maxLongitud;
-    resultado.indiceInicio=indiceInicio;
+    Resultado resultado = {indiceInicio, maxLongitud};
     return resultado;
 }
 
@@ -71,11 +69,11 @@ string DivideVenceras::calcularMitad(string s, int indice){
     return "";
 }
 
-string DivideVenceras::getMitadCadena(const string& cadena, int mitad, bool isDerecha){
+string DivideVenceras::getMitadCadena(const string& cadena, int indiceMitad, bool isDerecha){
     if(isDerecha){
-        return cadena.substr(mitad, cadena.length()-1);
+        return cadena.substr(indiceMitad, cadena.length()-1);
     } else{
-        return cadena.substr(0, mitad);
+        return cadena.substr(0, indiceMitad);
     }
 }
 
@@ -88,6 +86,7 @@ Resultado DivideVenceras::divideVenceras(string cadena, int tamanio){
 
         string stringIzquierda = getMitadCadena(cadena, indice, false);
         string stringDerecha = getMitadCadena(cadena, indice, true);
+
 
 
         Resultado solucion = combinar(divideVenceras(stringIzquierda,tamanio), divideVenceras(stringDerecha, tamanio), divideVenceras(calcularMitad(cadena, indice), tamanio));                 // BORRAR: de momento, para que no de error
