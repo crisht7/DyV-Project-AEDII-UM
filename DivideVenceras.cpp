@@ -70,21 +70,20 @@ Resultado DivideVenceras::combinar(Resultado primerSubproblema, Resultado segund
 }
 
 Resultado DivideVenceras::calcularMitad(const string& cadena, int indice, int tamanioBuscado){
-    /*
-        Sanitización del offset de la parte izquierda, ya que indice - tamanioBuscado podría ser < 0
-    */
     int offsetIzquierda = indice - tamanioBuscado;
-    if(indice - tamanioBuscado < 0){
+
+    // Sanitización del offset de la parte izquierda, ya que indice - tamanioBuscado podría ser < 0
+    if(offsetIzquierda < 0){
         offsetIzquierda = 0;
     }
-
-    Resultado izquierda = encontrarSubcadenaAscendente(cadena.substr(offsetIzquierda, cadena.length() - 1),tamanioBuscado);
+                                                                                    // antes , cadenalenght - 1
+    Resultado izquierda = encontrarSubcadenaAscendente(cadena.substr(offsetIzquierda),tamanioBuscado);
     Resultado derecha = encontrarSubcadenaAscendente(cadena.substr(indice),tamanioBuscado);
 
-    // TODO: Calcular el indiceInicio con respecto a la cadena original y no del subproblema actual
+    // TODO: Calcular el indiceInicio con respecto a la cadena original y no de las subcadenas actual
 
-    izquierda.indiceInicio = izquierda.indiceInicio + offsetIzquierda - 1;
-    derecha.indiceInicio = derecha.indiceInicio + indice - 1;
+    izquierda.indiceInicio = izquierda.indiceInicio + offsetIzquierda;
+    derecha.indiceInicio = derecha.indiceInicio + indice;
 
     return combinar(izquierda, derecha);
 }

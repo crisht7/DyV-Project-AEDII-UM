@@ -42,6 +42,6 @@ Resultado generarCasoPersonalizado(){
 }
 
 int main(){
-    printResultado(generarCasoPersonalizado());
+    printResultado(generarCasoAleatorio());
     return 0;
 }
