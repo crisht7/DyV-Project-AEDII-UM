@@ -16,6 +16,14 @@ Resultado DivideVenceras::divideVenceras(string cadena, int tamanio){
     }
 }
 
+string DivideVenceras::getMitadCadena(const string& cadena, int indiceMitad, bool isDerecha){
+    if(isDerecha){
+        return cadena.substr(indiceMitad, cadena.length()-1);
+    } else{
+        return cadena.substr(0, indiceMitad);
+    }
+}
+
 bool DivideVenceras::isProblemaPequenio(string cadena){
     return cadena.length() == 1;
 }
@@ -61,6 +69,21 @@ Resultado DivideVenceras::combinar(Resultado primerSubproblema, Resultado segund
     return mayor;
 }
 
+Resultado DivideVenceras::calcularMitad(const string& cadena, int indice, int tamanioBuscado){
+    /*
+        Sanitización del offset de la parte izquierda, ya que indice - tamanioBuscado podría ser < 0
+    */
+    int offsetIzquierda = indice - tamanioBuscado;
+    if(indice - tamanioBuscado < 0){
+        offsetIzquierda = 0;
+    }
+
+    Resultado izquierda = encontrarSubcadenaAscendente(cadena.substr(offsetIzquierda, cadena.length() - 1),tamanioBuscado);
+    Resultado derecha = encontrarSubcadenaAscendente(cadena.substr(indice),tamanioBuscado);
+
+    return combinar(izquierda, derecha);
+}
+
 Resultado DivideVenceras::encontrarSubcadenaAscendente(string cadena, int tamanioBuscado) {
     int maxLongitud = 0;
     int indiceInicio = 0;
@@ -91,28 +114,4 @@ Resultado DivideVenceras::encontrarSubcadenaAscendente(string cadena, int tamani
     */
     Resultado resultado = {indiceInicio + 1, maxLongitud};
     return resultado;
-}
-
-
-Resultado DivideVenceras::calcularMitad(const string& cadena, int indice, int tamanioBuscado){
-    /*
-        Sanitización del offset de la parte izquierda, ya que indice - tamanioBuscado podría ser < 0
-    */
-    int offsetIzquierda = indice - tamanioBuscado;
-    if(indice - tamanioBuscado < 0){
-        offsetIzquierda = 0;
-    }
-
-    Resultado izquierda = encontrarSubcadenaAscendente(cadena.substr(offsetIzquierda, cadena.length() - 1),tamanioBuscado);
-    Resultado derecha = encontrarSubcadenaAscendente(cadena.substr(indice),tamanioBuscado);
-
-    return combinar(izquierda, derecha);
-}
-
-string DivideVenceras::getMitadCadena(const string& cadena, int indiceMitad, bool isDerecha){
-    if(isDerecha){
-        return cadena.substr(indiceMitad, cadena.length()-1);
-    } else{
-        return cadena.substr(0, indiceMitad);
-    }
 }
