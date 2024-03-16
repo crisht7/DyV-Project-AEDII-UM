@@ -10,7 +10,12 @@
 
 using namespace std;
 
-int main(){
+void printResultado(Resultado resultado){
+    cout << "tamanio> " << resultado.tamanio << endl;
+    cout << "indiceInicio> " << resultado.indiceInicio << endl;
+}
+
+Resultado generarCasoAleatorio(){
     int n, m;
     cout << "n> ";
     cin >> n;
@@ -21,9 +26,22 @@ int main(){
     string casoGenerado = Abecedario::generarCadenaAleatoria(n);
     cout << "caso> " << casoGenerado << endl;
 
-    Resultado resultado = DivideVenceras::divideVenceras(casoGenerado, m);
+    return DivideVenceras::divideVenceras(casoGenerado, m);
+}
 
-    cout << endl << "tamanio> " << resultado.tamanio << endl;
-    cout << "indiceInicio> " << resultado.indiceInicio << endl;
+Resultado generarCasoPersonalizado(){
+    string cadena;
+    cout << "cadena> ";
+    cin >> cadena;
+
+    int m;
+    cout << "m> ";
+    cin >> m;
+
+    return DivideVenceras::divideVenceras(cadena, m);
+}
+
+int main(){
+    printResultado(generarCasoPersonalizado());
     return 0;
 }

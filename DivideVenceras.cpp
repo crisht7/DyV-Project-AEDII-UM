@@ -81,6 +81,11 @@ Resultado DivideVenceras::calcularMitad(const string& cadena, int indice, int ta
     Resultado izquierda = encontrarSubcadenaAscendente(cadena.substr(offsetIzquierda, cadena.length() - 1),tamanioBuscado);
     Resultado derecha = encontrarSubcadenaAscendente(cadena.substr(indice),tamanioBuscado);
 
+    // TODO: Calcular el indiceInicio con respecto a la cadena original y no del subproblema actual
+
+    izquierda.indiceInicio = izquierda.indiceInicio + offsetIzquierda - 1;
+    derecha.indiceInicio = derecha.indiceInicio + indice - 1;
+
     return combinar(izquierda, derecha);
 }
 
@@ -112,6 +117,6 @@ Resultado DivideVenceras::encontrarSubcadenaAscendente(string cadena, int tamani
         el primer caracter de una cadena empieza en la posición 1,
         en vez de la posición 0
     */
-    Resultado resultado = {indiceInicio + 1, maxLongitud};
+    Resultado resultado = {indiceInicio+1, maxLongitud};
     return resultado;
 }
