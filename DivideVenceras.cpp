@@ -1,11 +1,27 @@
 #include "DivideVenceras.h"
 
+/*
+    Estructura DyV de acuerdo con diapositiva 11 de teoría.
+*/
+Resultado DivideVenceras::divideVenceras(string cadena, int tamanio){
+    if(isProblemaPequenio(cadena)){
+        return solucionarDirectamente();
+    } else{
+        int indice = dividirProblema(cadena);
+
+        string stringIzquierda = getMitadCadena(cadena, indice, false);
+        string stringDerecha = getMitadCadena(cadena, indice, true);
+
+        return combinar(divideVenceras(stringIzquierda,tamanio), divideVenceras(stringDerecha, tamanio), calcularMitad(cadena, indice,tamanio));
+    }
+}
+
 bool DivideVenceras::isProblemaPequenio(string cadena){
     return cadena.length() == 1;
 }
 
 Resultado DivideVenceras::solucionarDirectamente(){
-    Resultado resultado = {1,1};                    // ya que el caso base es el de una cadena de length 1
+    Resultado resultado = {1,1};                            // ya que el caso base es el de una cadena de length 1
     return resultado;
 }
 
@@ -15,7 +31,7 @@ int DivideVenceras::dividirProblema(string cadena){
 
 /*
     Método para obtener la solución al problema original
-    a partir de las soluciones de los subproblemas.
+    a partir de las soluciones de 3 subproblemas.
 */
 Resultado DivideVenceras::combinar(Resultado primerSubproblema, Resultado segundoSubproblema, Resultado tercerSubproblema){
     Resultado mayor = primerSubproblema;
@@ -31,6 +47,10 @@ Resultado DivideVenceras::combinar(Resultado primerSubproblema, Resultado segund
     return mayor;
 }
 
+/*
+    Método para obtener la solución al problema original
+    a partir de las soluciones de 2 subproblemas.
+*/
 Resultado DivideVenceras::combinar(Resultado primerSubproblema, Resultado segundoSubproblema){
     Resultado mayor = primerSubproblema;
 
@@ -64,13 +84,26 @@ Resultado DivideVenceras::encontrarSubcadenaAscendente(string cadena, int tamani
         indiceInicio = cadena.length() - maxLongitud;
     }
 
-    Resultado resultado = {indiceInicio, maxLongitud};
+    /*
+        +1 debido a que en los ejemplos se establece que
+        el primer caracter de una cadena empieza en la posición 1,
+        en vez de la posición 0
+    */
+    Resultado resultado = {indiceInicio + 1, maxLongitud};
     return resultado;
 }
 
 
 Resultado DivideVenceras::calcularMitad(const string& cadena, int indice, int tamanioBuscado){
-    Resultado izquierda = encontrarSubcadenaAscendente(cadena.substr(indice - 1, cadena.length() - indice - 1),tamanioBuscado);
+    /*
+        Sanitización del offset de la parte izquierda, ya que indice - tamanioBuscado podría ser < 0
+    */
+    int offsetIzquierda = indice - tamanioBuscado;
+    if(indice - tamanioBuscado < 0){
+        offsetIzquierda = 0;
+    }
+
+    Resultado izquierda = encontrarSubcadenaAscendente(cadena.substr(offsetIzquierda, cadena.length() - 1),tamanioBuscado);
     Resultado derecha = encontrarSubcadenaAscendente(cadena.substr(indice),tamanioBuscado);
 
     return combinar(izquierda, derecha);
@@ -81,21 +114,5 @@ string DivideVenceras::getMitadCadena(const string& cadena, int indiceMitad, boo
         return cadena.substr(indiceMitad, cadena.length()-1);
     } else{
         return cadena.substr(0, indiceMitad);
-    }
-}
-
-/*
-    Estructura DyV de acuerdo con diapositiva 11 de teoría.
-*/
-Resultado DivideVenceras::divideVenceras(string cadena, int tamanio){
-    if(isProblemaPequenio(cadena)){
-        return solucionarDirectamente();
-    } else{
-        int indice = dividirProblema(cadena);
-
-        string stringIzquierda = getMitadCadena(cadena, indice, false);
-        string stringDerecha = getMitadCadena(cadena, indice, true);
-
-        return combinar(divideVenceras(stringIzquierda,tamanio), divideVenceras(stringDerecha, tamanio), calcularMitad(cadena, indice,tamanio));
     }
 }
