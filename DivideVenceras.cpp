@@ -12,7 +12,7 @@ Resultado DivideVenceras::divideVenceras(string cadena, int tamanio){
         string stringIzquierda = getMitadCadena(cadena, indice, false);
         string stringDerecha = getMitadCadena(cadena, indice, true);
 
-        return combinar(divideVenceras(stringIzquierda,tamanio), divideVenceras(stringDerecha, tamanio), calcularMitad(cadena, indice,tamanio));
+        return combinar(calcularMitad(cadena, indice, tamanio), divideVenceras(stringIzquierda,tamanio), divideVenceras(stringDerecha, tamanio));
     }
 }
 
@@ -70,19 +70,17 @@ Resultado DivideVenceras::combinar(Resultado primerSubproblema, Resultado segund
 }
 
 Resultado DivideVenceras::calcularMitad(const string& cadena, int indice, int tamanioBuscado){
-    int offsetIzquierda = indice - tamanioBuscado;
+    int offsetIzquierda = indice - tamanioBuscado - 1; // antes sin -1
 
     // Sanitización del offset de la parte izquierda, ya que indice - tamanioBuscado podría ser < 0
     if(offsetIzquierda < 0){
         offsetIzquierda = 0;
     }
-                                                                                    // antes , cadenalenght - 1
+
     Resultado izquierda = encontrarSubcadenaAscendente(cadena.substr(offsetIzquierda),tamanioBuscado);
     Resultado derecha = encontrarSubcadenaAscendente(cadena.substr(indice),tamanioBuscado);
 
-    // TODO: Calcular el indiceInicio con respecto a la cadena original y no de las subcadenas actual
-
-    izquierda.indiceInicio = izquierda.indiceInicio + offsetIzquierda;
+    izquierda.indiceInicio = izquierda.indiceInicio + offsetIzquierda; 
     derecha.indiceInicio = derecha.indiceInicio + indice;
 
     return combinar(izquierda, derecha);
